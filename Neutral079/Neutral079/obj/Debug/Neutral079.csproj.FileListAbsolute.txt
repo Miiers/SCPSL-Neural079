@@ -1,0 +1,8 @@
+F:\Projects\Neutral079\Neutral079\bin\Debug\Neutral079.dll
+F:\Projects\Neutral079\Neutral079\bin\Debug\Neutral079.pdb
+F:\Projects\Neutral079\Neutral079\bin\Debug\Smod2.dll
+F:\Projects\Neutral079\Neutral079\obj\Debug\Neutral079.csprojAssemblyReference.cache
+F:\Projects\Neutral079\Neutral079\obj\Debug\Neutral079.csproj.CoreCompileInputs.cache
+F:\Projects\Neutral079\Neutral079\obj\Debug\Neutral079.csproj.CopyComplete
+F:\Projects\Neutral079\Neutral079\obj\Debug\Neutral079.dll
+F:\Projects\Neutral079\Neutral079\obj\Debug\Neutral079.pdb
