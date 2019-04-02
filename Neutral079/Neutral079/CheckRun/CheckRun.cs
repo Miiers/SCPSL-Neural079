@@ -6,10 +6,10 @@ using Smod2;
 
 namespace Neutral079.CheckRun
 {
-    internal class CheckRun : IEventHandler, IEventHandler079LevelUp, IEventHandlerSpawn, IEventHandler079Lockdown, IEventHandlerPlayerDie, IEventHandlerUpdate, IEventHandlerRoundEnd, IEventHandlerGeneratorEjectTablet, IEventHandlerGeneratorUnlock, IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart
+    internal class CheckRun : IEventHandler, IEventHandler079LevelUp, IEventHandlerSpawn, IEventHandler079Lockdown, IEventHandlerPlayerDie, IEventHandlerRoundEnd, IEventHandlerGeneratorEjectTablet, IEventHandlerGeneratorUnlock, IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart
     {
         private Plugin plugin;
-        private int scp079id = 99999;
+        private int scp079id = -1;
         private int count = 0;
         private bool neutralSpawn = true;
         private int neutralMaxAP;
@@ -25,7 +25,7 @@ namespace Neutral079.CheckRun
 
         public void OnSpawn(PlayerSpawnEvent ev)
         {
-            neutralEnable = plugin.GetConfigBool("Neutral_Enable");
+            neutralEnable = plugin.GetConfigBool("n079_Enable");
             if (ev.Player.TeamRole.Role == Role.SCP_079 && neutralSpawn == true && neutralEnable == true)
             {
                 scp079id = ev.Player.PlayerId;
@@ -35,16 +35,16 @@ namespace Neutral079.CheckRun
 
         public void On079LevelUp(Player079LevelUpEvent ev)
         {
-            neutralMaxAP = plugin.GetConfigInt("Neutral079MaxAP");
-            neutralAPPer = plugin.GetConfigInt("Neutral079APPer");
+            neutralMaxAP = plugin.GetConfigInt("n079_MaxAP");
+            neutralAPPer = plugin.GetConfigInt("n079_APPer");
             ev.Player.Scp079Data.MaxAP.Equals(neutralMaxAP);
             ev.Player.Scp079Data.APPerSecond.Equals(neutralAPPer);
         }
 
         public void On079Lockdown(Player079LockdownEvent ev)
         {
-            Neutral079LockdownCount = plugin.GetConfigInt("Neutral079LockdownCount");
-            Neutral079LockdownDead = plugin.GetConfigInt("Neutral079LockdownDead");
+            Neutral079LockdownCount = plugin.GetConfigInt("n079_LC");
+            Neutral079LockdownDead = plugin.GetConfigInt("n079_LD");
             if (count > Neutral079LockdownCount)
             {
                 if (new Random().Next(1, 100) > Neutral079LockdownDead)
@@ -72,26 +72,14 @@ namespace Neutral079.CheckRun
         {
             if (ev.Player.PlayerId == scp079id)
             {
-                scp079id = 99999;
+                scp079id = -1;
                 neutralSpawn = true;
             }
         }
 
-        public void OnUpdate(UpdateEvent ev)
-        {
-            this.plugin.pluginManager.Server.GetPlayers("").ForEach(delegate (Player s079)
-            {
-                if (s079.TeamRole.Role != Role.SCP_079 && scp079id == s079.PlayerId)
-                {
-                    neutralSpawn = true;
-                    scp079id = 99999;
-                }
-            });
-        }
-
         public void OnCheckRoundEnd(CheckRoundEndEvent ev)
         {
-            if (scp079id != 99999)
+            if (scp079id != -1)
             {
                 int check = 0;
                 int check2 = 0;
@@ -138,25 +126,15 @@ namespace Neutral079.CheckRun
         public void OnRoundEnd(RoundEndEvent ev)
         {
             neutralSpawn = true;
-            scp079id = 99999;
+            scp079id = -1;
             count = 0;
-            neutralEnable = plugin.GetConfigBool("Neutral_Enable");
-            neutralMaxAP = plugin.GetConfigInt("Neutral079MaxAP");
-            neutralAPPer = plugin.GetConfigInt("Neutral079APPer");
-            Neutral079LockdownCount = plugin.GetConfigInt("Neutral079LockdownCount");
-            Neutral079LockdownDead = plugin.GetConfigInt("Neutral079LockdownDead");
         }
 
         public void OnRoundRestart(RoundRestartEvent ev)
         {
             neutralSpawn = true;
-            scp079id = 99999;
+            scp079id = -1;
             count = 0;
-            neutralEnable = plugin.GetConfigBool("Neutral_Enable");
-            neutralMaxAP = plugin.GetConfigInt("Neutral079MaxAP");
-            neutralAPPer = plugin.GetConfigInt("Neutral079APPer");
-            Neutral079LockdownCount = plugin.GetConfigInt("Neutral079LockdownCount");
-            Neutral079LockdownDead = plugin.GetConfigInt("Neutral079LockdownDead");
         }
     }
 }
