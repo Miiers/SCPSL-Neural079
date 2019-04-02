@@ -27,7 +27,7 @@ This probability can be modified in config_gameplay.
 
 - Some players won't turn off the generator
 
-- There is only one road on the map, but there is a Tesla, 079 can control Tesla, so that players can not get in the site.
+- There is only one road on the map, but there have a Tesla, 079 can control this Tesla let players can not get in the site.
 
 
 - 协助击杀SCP（+60经验）
