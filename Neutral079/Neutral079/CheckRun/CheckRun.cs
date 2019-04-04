@@ -6,7 +6,8 @@ using Smod2;
 
 namespace Neutral079.CheckRun
 {
-    internal class CheckRun : IEventHandler, IEventHandler079LevelUp, IEventHandlerSpawn, IEventHandler079Lockdown, IEventHandlerPlayerDie, IEventHandlerRoundEnd, IEventHandlerGeneratorEjectTablet, IEventHandlerGeneratorUnlock, IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart
+    internal class CheckRun : IEventHandler, IEventHandler079LevelUp, IEventHandlerSpawn, IEventHandler079Lockdown, IEventHandlerPlayerDie, IEventHandlerRoundEnd, IEventHandlerGeneratorEjectTablet, 
+        IEventHandlerGeneratorUnlock, IEventHandlerCheckRoundEnd, IEventHandlerRoundRestart
     {
         private Plugin plugin;
         private int scp079id = -1;
@@ -26,6 +27,8 @@ namespace Neutral079.CheckRun
         public void OnSpawn(PlayerSpawnEvent ev)
         {
             neutralEnable = plugin.GetConfigBool("n079_Enable");
+            neutralMaxAP = plugin.GetConfigInt("n079_MaxAP");
+            neutralAPPer = plugin.GetConfigInt("n079_APPer");
             if (ev.Player.TeamRole.Role == Role.SCP_079 && neutralSpawn == true && neutralEnable == true)
             {
                 scp079id = ev.Player.PlayerId;
@@ -35,10 +38,8 @@ namespace Neutral079.CheckRun
 
         public void On079LevelUp(Player079LevelUpEvent ev)
         {
-            neutralMaxAP = plugin.GetConfigInt("n079_MaxAP");
-            neutralAPPer = plugin.GetConfigInt("n079_APPer");
-            ev.Player.Scp079Data.MaxAP.Equals(neutralMaxAP);
-            ev.Player.Scp079Data.APPerSecond.Equals(neutralAPPer);
+            ev.Player.Scp079Data.MaxAP = neutralMaxAP;
+            ev.Player.Scp079Data.APPerSecond = neutralAPPer;
         }
 
         public void On079Lockdown(Player079LockdownEvent ev)
