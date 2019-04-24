@@ -87,7 +87,7 @@ namespace Neutral079.CheckRun
                 int check3 = 0;
                 int check4 = 0;
                 int check5 = 0;
-                foreach (Player player in plugin.pluginManager.Server.GetPlayers())
+                foreach (Player player in plugin.PluginManager.Server.GetPlayers())
                 {
                     if (player.TeamRole.Team == Team.SCP)
                     {
@@ -113,13 +113,13 @@ namespace Neutral079.CheckRun
                 if ((check2 == 0 && check4 == 0 && check == 1) && !neutralSpawn)
                 {
                     ev.Status = ROUND_END_STATUS.MTF_VICTORY;
-                    plugin.pluginManager.Server.Round.EndRound();
+                    plugin.PluginManager.Server.Round.EndRound();
                     return;
                 }
                 if ((check3 == 0 && check5 == 0 && check == 1 && check2 >= 1) && !neutralSpawn)
                 {
                     ev.Status = ROUND_END_STATUS.CI_VICTORY;
-                    plugin.pluginManager.Server.Round.EndRound();
+                    plugin.PluginManager.Server.Round.EndRound();
                 }
             }
         }
